@@ -1,7 +1,7 @@
 # Voice — Schematic
 
 **Track:** A. Family play (stories for the kids on the iPad). The writing and voice-making side is a small grown-up corner inside ⚙️.
-**Status:** MVP 0.4.1 (not yet device-tested). Moved out of the Index nursery into its own repo on 2026-11-10; 0.4.1 is 0.4.0 plus the move fixes (cache-busting tags, standalone notes). Three stories, each in English, 中文 and a third language (日本語, Español, Français) with a tune from that culture; 🎬 director's notes with sound effects. Story list in `story_list.md`. Decisions in `convo/`.
+**Status:** MVP 0.5.0 (2026-11-10, not yet device-tested). Thirteen stories on the shelf, each in English, 中文 and a third language (日本語, Español, Français, Italiano, Português, हिन्दी recorded by Kokoro; 한국어, Nederlands, Dansk and Aussie English read by the iPad voice), with a tune from that culture; 🎬 director's notes with sound effects. Story list in `story_list.md`. Decisions in `convo/`.
 
 ## 1. The idea in one paragraph
 
@@ -92,9 +92,10 @@ All tables: RLS on, anon revoked, registered in `app_table_registry` under app `
 | 0.2 ✅ | Listening test: The Fisherman and the Goldfish (English) and 狼来了 (Chinese), each with two Kokoro voices (MP3 + estimated word timings) beside the iPad voice, in 🎧 Compare voices. ElevenLabs slot shown, not made (needs a key). | Done with Kokoro, free. |
 | 0.3 ✅ | Kokoro focus: Little Red Riding Hood (Perrault's original, with its moral) as a **script story** (cast of five Kokoro voices, tone per line, hidden notes for blocking, gestures and thoughts behind 📜). **Kokoro · live**: the model runs in the browser (worker, kokoro-js), English only. | Nothing external; the live model downloads from huggingface.co once. |
 | 0.4 ✅ | Languages and director's notes: every story in English + 中文 + a third language read by a native Kokoro voice, a synthesized tune per culture (`js/sound.js`), 🎬 director's notes (motivation, acting, sound, moves, gesture, thought) that pop open from ⚙️, sound cues that play as the story reaches the line. `story_list.md`: ten more stories planned. | Nothing external. |
-| 0.5 | Family database: tables, bucket, sign-in, stories load live, cache on device. | Paste SQL. |
-| 0.6 | ✨ Make voice, versions and restore in the grown-up corner (Kokoro in the browser can make it, no key needed). | — |
-| 0.7 | Polish: covers, chapter stories, per-reader speed records, character voices. | Feedback notes. |
+| 0.5 ✅ | **Ten more stories** (`story_list.md`): each with a cast of voices, English + 中文 + a third language, director's notes with 23 sound effects, and two new tunes (India, Brazil). | Nothing external. |
+| 0.6 | Family database: tables, bucket, sign-in, stories load live, cache on device. | Paste SQL. |
+| 0.7 | ✨ Make voice, versions and restore in the grown-up corner (Kokoro in the browser can make it, no key needed). | — |
+| 0.8 | Polish: covers, chapter stories, per-reader speed records, character voices. | Feedback notes. |
 
 ## 6b. Listening test (0.2)
 
@@ -120,6 +121,7 @@ The `cast` track reads each line in its speaker's voice: Narrator `bm_fable`, Mo
 - **Sound effects** (`js/sound.js`, Web Audio, no files): knock, door, wind, birds, axe, steps, growl, splash, waves, howl, bell, gulp, magic. The first `sfx` of a line plays when the reading reaches it (any voice engine), and each one also has a ▶ in the notes.
 - **Tunes:** japan (koto, *in* scale), korea (gayageum pentatonic), china (guzheng pentatonic), france (musette waltz), spain (Phrygian guitar), italy (mandolin tremolo), netherlands (barrel organ), australia (didgeridoo and clapsticks). They play softly while a story plays; ⚙️ → 🎵.
 - **Voices for each language:** Kokoro covers en, zh, ja, fr, es, it, pt, hi. Korean, Dutch, Danish and Australian English fall back to the iPad voice for that language. Live Kokoro is English only.
+- **0.5 additions:** sound effects now also include whistle, cheer, snore, bubbles, drip, clink, trumpet, chirp, roar, crunch and fiddle; tunes also india (raga-style pluck over a drone) and brazil (samba-style guitar and shaker). Speed read splits words into whole letters (grapheme clusters) so Hindi vowel signs and French accents never separate from their letter, and the Hindi danda (।) ends a sentence.
 
 ## 7. Not in scope (for now)
 

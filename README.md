@@ -2,13 +2,12 @@
 
 A shelf of family stories for the kids on the iPad, narrated by [Kokoro](https://github.com/hexgrad/kokoro), a free open voice model.
 
-- **Three stories**, each in **English, 中文 and a third language** from its part of the world, with a soft synthesized tune:
-  🐟 The Fisherman and the Goldfish (日本語) · 🐺 The Boy Who Cried Wolf (Español) · 🧺 Little Red Riding Hood, Perrault's original (Français)
+- **Thirteen stories** from folk tales around the world (Aesop, Japan, Korea, India, the Netherlands, France, Italy, Denmark and more), each in **English, 中文 and a third language** from its part of the world, with a soft synthesized tune. See `story_list.md`.
 - **Read along** with the spoken word highlighted, or **speed read** (one word at a time, red focus letter, drag the speed).
 - **🎬 Director's notes** open from ⚙️: why each character speaks, how to act it, sounds, moves and thoughts. Sound effects play on cue.
 - **Voices:** made ahead of time (works offline), **live in the browser** (English), or the iPad's own voice.
 
-**Current version: 0.4.1.** To check which version a device is running, open ⚙️ and read the bottom line.
+**Current version: 0.5.0.** To check which version a device is running, open ⚙️ and read the bottom line.
 
 ## Run it
 

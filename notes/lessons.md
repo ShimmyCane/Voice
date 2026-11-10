@@ -13,3 +13,6 @@
 11. **Japanese needs word joining for reading.** Raw fugashi tokens split verb endings (い・まし・た); join particles, auxiliaries, suffixes and closing brackets to the word before, and prefixes and opening brackets to the next.
 12. **Accented letters:** use `\p{L}` with the `u` flag for the focus letter and the weights, not `[A-Za-z]` (French and Spanish broke the speed-read split).
 13. **Python stdout to a file is block-buffered:** a background bake showed no progress lines until the end. Use `python3 -u` or check the output files.
+14. **A list is not the thing.** "A list of ten stories" was delivered as a list, and the shelf stayed at three; the user expected ten. When a request could mean a plan or the real thing, say which one is being delivered, in the same reply, and offer the other.
+15. **Generate parallel language files from one table.** Ten stories x three languages (one cast, one set of notes, same line order) came from two small Python data files and one generator. Mismatched line counts between languages are caught by a check that compares them.
+16. **Bake ~2 minutes per track on 4 CPUs;** 26 tracks took about 45 minutes. Run in the background with `python3 -u` and write the docs and tests meanwhile.

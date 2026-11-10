@@ -1,38 +1,46 @@
 # Voice — Story list
 
-Stories in the same vein: old public-domain tales with a clear lesson, written as **script stories** (a cast of voices, director's notes hidden behind 🎬). Every story has **English and 中文**, plus a **third language from the story's part of the world**, with a soft synthesized tune from that place.
+Old public-domain tales with a clear lesson, written as **script stories**: a cast of voices, and 🎬 director's notes (why, acting, sound, moves, thoughts) hidden until you open them. Every story has **English and 中文**, plus a **third language from the story's part of the world**, with a soft synthesized tune from there.
 
-Voice support for each third language:
-- **Kokoro** (free, open, works offline once made): English (US and UK), Chinese, Japanese, French, Spanish, Italian, Portuguese (Brazil), Hindi.
-- **iPad voice only** (Kokoro has no voice for these yet): Korean, Dutch, Danish, Australian English. Download a Premium or Enhanced voice for the language in the iPad's Settings first.
+**Voices:** Kokoro (free, open) speaks English, Chinese, Japanese, French, Spanish, Italian, Portuguese and Hindi, so those versions have recorded audio. Korean, Dutch, Danish and Australian English have no Kokoro voice yet, so those versions are read by the **iPad's own voice** (download a Premium or Enhanced voice for the language in the iPad's Settings → Accessibility → Spoken Content → Voices).
 
-## On the shelf now
+## On the shelf (13)
 
-| # | Story | Source | Lesson | Third language | Tune | Status |
-|---|---|---|---|---|---|---|
-| 1 | 🐟 The Fisherman and the Goldfish | Russian folk tale (as in Pushkin, 1833) | Greed loses everything; love is enough | 日本語 Japanese (Kokoro `jm_kumo`) | Koto, *in* scale | ✅ EN · 中文 · 日本語 |
-| 2 | 🐺 The Boy Who Cried Wolf | Aesop | A liar is not believed even when he tells the truth | Español Spanish (Kokoro `em_alex`) | Spanish guitar | ✅ EN · 中文 · ES |
-| 3 | 🧺 Little Red Riding Hood | Perrault, 1697 (the original, with its moral) | Beware of sweet-talking strangers | Français French (Kokoro `ff_siwis`) | Musette accordion waltz | ✅ EN · 中文 · FR (cast in EN and 中文) |
+| # | Story | Source | Lesson | Third language | Tune |
+|---|---|---|---|---|---|
+| 1 | 🐟 The Fisherman and the Goldfish | Russian folk tale | Greed loses everything; love is enough | 日本語 Japanese (Kokoro) | koto |
+| 2 | 🐺 The Boy Who Cried Wolf | Aesop | A liar is not believed even when he tells the truth | Español Spanish (Kokoro) | Spanish guitar |
+| 3 | 🧺 Little Red Riding Hood | Perrault, 1697 (the original) | Beware of sweet-talking strangers | Français French (Kokoro) | musette waltz |
+| 4 | 🐢 The Tortoise and the Hare | Aesop | Slow and steady wins the race | Aussie English, told in the outback (iPad voice) | didgeridoo and clapsticks |
+| 5 | 🌊 Urashima Tarō and the Turtle | Japanese folk tale | Time and home are precious | 日本語 Japanese (Kokoro) | koto |
+| 6 | 🌙 The Sun and the Moon 해님 달님 | Korean folk tale | Quick wits and courage beat a trick | 한국어 Korean (iPad voice) | gayageum |
+| 7 | 🍲 Stone Soup | European folk tale | Sharing makes a feast out of nothing | Français French (Kokoro) | musette waltz |
+| 8 | 🌷 The Boy and the Dike | Dutch story (from *Hans Brinker*, 1865) | Small courage can save a whole town | Nederlands Dutch (iPad voice) | barrel organ |
+| 9 | 🪵 Pinocchio and the Talking Cricket | Collodi, 1883 | Listen to the voice that tells you the truth | Italiano Italian (Kokoro) | mandolin |
+| 10 | 🐜 The Ant and the Grasshopper | Aesop | Work now, rest later, share with those in need | Español Spanish (Kokoro) | Spanish guitar |
+| 11 | 🐒 The Monkey and the Crocodile | Panchatantra, India | Quick wits beat strength | हिन्दी Hindi (Kokoro) | raga-style sitar pluck |
+| 12 | 🦁 The Lion and the Mouse | Aesop | No kindness is wasted | Português Portuguese (Kokoro) | samba-style guitar |
+| 13 | 👑 The Emperor's New Clothes | Andersen, 1837 | Say what is true, even when others won't | Dansk Danish (iPad voice) | barrel organ |
 
-## Ten more to write
+Numbers 4 to 13 were written on 2026-11-10. They are short (12 to 14 lines) and have a cast of two to four voices. Notes:
+- **Italian and French:** Kokoro has only two Italian voices and one French voice, so some characters share a voice (the French version is read by one voice).
+- **Chinese casts:** every Chinese version has its own cast of Kokoro voices.
+- The first three stories are older and shaped differently (the fisherman and the wolf are plain paragraphs; Red Riding Hood is the only long script story).
 
-| # | Story | Source | Lesson | Cast (Kokoro voices, English) | Third language | Tune | Sound cues |
-|---|---|---|---|---|---|---|---|
-| 4 | 🐢 The Tortoise and the Hare | Aesop | Slow and steady wins the race | Narrator, Hare (quick, boastful), Tortoise (slow, calm), Fox (referee) | Aussie English (iPad voice en-AU), told as a race across the outback | Didgeridoo and clapsticks | starting whistle, snoring, crowd cheer |
-| 5 | 🐉 Urashima Tarō | Japanese folk tale (8th century) | Time and home are precious | Narrator, Tarō (kind young fisherman), the Turtle, Princess Otohime | 日本語 Japanese (Kokoro) | Koto | waves, bubbles, the box opening (smoke) |
-| 6 | ☀️ The Sun and the Moon (해님 달님) | Korean folk tale | Brave, quick-thinking children; never open the door to a trick | Narrator, Brother, Sister, Mother, the Tiger (hungry, sly) | 한국어 Korean (iPad voice) | Gayageum pentatonic | knock, a rope creaking, tiger growl, wind |
-| 7 | 🍲 Stone Soup (La soupe au caillou) | French folk tale | Sharing makes a feast out of nothing | Narrator, the Traveller (cheerful), villagers (each brings something) | Français French (Kokoro) | Accordion waltz | bubbling pot, door knocks, spoon clinks |
-| 8 | 🌷 The Boy and the Dike | The "little Dutch boy", from *Hans Brinker* (1865) | Small courage can save a whole town | Narrator, Peter (brave, cold, tired), Mother, the Townsfolk | Nederlands Dutch (iPad voice) | Barrel organ | trickling water, wind, church bell |
-| 9 | 🪵 Pinocchio and the Talking Cricket | Collodi, 1883 (one episode) | Listen to the voice that tells you the truth | Narrator, Pinocchio (cheeky), Geppetto (gentle), the Cricket (wise, tiny) | Italiano Italian (Kokoro `im_nicola`, `if_sara`) | Mandolin tremolo | wood carving, cricket chirps, a hammer |
-| 10 | 🐜 The Ant and the Grasshopper | Aesop | Work now, rest later; and share with those in need | Narrator, Ant (busy), Grasshopper (sings), Queen Ant | Español Spanish (Kokoro `ef_dora`), set in a Spanish summer | Guitar | fiddle, wind, snow crunch |
-| 11 | 🐒 The Monkey and the Crocodile | Panchatantra (India) | Quick wits beat strength | Narrator, Monkey (clever), Crocodile (greedy), Crocodile's wife | हिन्दी Hindi (Kokoro `hf_alpha`, `hm_omega`) | Sitar-style drone (to add) | river splash, jamun fruit falling, laughter |
-| 12 | 🦁 The Lion and the Mouse | Aesop | No kindness is ever wasted; the small can help the great | Narrator, Lion (proud, then grateful), Mouse (tiny, brave), Hunters | Português Portuguese (Kokoro `pf_dora`, `pm_alex`), set in a Brazilian forest | Samba-style rhythm (to add) | roar, net rope, nibbling |
-| 13 | 👑 The Emperor's New Clothes | Andersen (Danish), 1837 | Say what is true, even when everyone else won't | Narrator, Emperor (vain), two Swindlers (smooth), Minister, a Child | Dansk Danish (iPad voice) | Barrel organ (to adapt) | trumpet fanfare, crowd murmur, a child's laugh |
+## Ideas for next
+
+| Story | Source | Lesson | Third language |
+|---|---|---|---|
+| 🐘 The Blind Men and the Elephant | India | Everyone sees a piece of the truth | हिन्दी Hindi |
+| 🍑 Momotarō, the Peach Boy | Japan | Friends make a team | 日本語 Japanese |
+| 🦊 The Fox and the Grapes | Aesop | Do not say a thing is bad just because you cannot have it | Italiano Italian |
+| 🐸 The Frog Prince | Grimm, Germany | Keep your promises | Deutsch German (iPad voice) |
+| 🐻 Anansi and the Pot of Wisdom | West Africa | Wisdom is for sharing | English with a Ghanaian touch |
 
 ## How a story is added
 
-1. Write the English script with a cast and director's notes (`stories/<id>.js`, see `red_hood.js`).
-2. Write the 中文 and third-language files line by line, with `group` and `notesFrom` pointing at the English one.
-3. Make the audio: `python3 -I tools/make_kokoro.py --model <dir> <ids>`. Languages Kokoro does not speak use the iPad voice, so they have no audio file.
-4. Add the script tags to `index.html`.
-5. A new tune style goes into `js/sound.js` (`STYLES`).
+1. Write the English script with a cast and director's notes (`stories/<id>.js`, see `red_hood.js` or `tortoise_hare.js`).
+2. Write the 中文 and third-language files line by line, with the same `group` and `notesFrom` pointing at the English one (`<id>_zh.js`, `<id>_<code>.js`).
+3. Make the audio: `python3 -I tools/make_kokoro.py --model <dir> <ids>`. Languages Kokoro does not speak get no audio file and use the iPad voice.
+4. Add the script tags to `index.html` and bump the version.
+5. A new tune style goes into `js/sound.js` (`STYLES`); a new sound effect goes in `SFX`.

@@ -1,6 +1,7 @@
 /* Voice — sound effects and background tunes, all made with the Web Audio API (no sound files).
    VoiceSound.sfx(name)            play one effect: knock door wind birds axe steps growl splash waves howl bell gulp magic
-   VoiceSound.music(style)         start a soft looping tune: japan korea china france spain italy netherlands australia
+                                   whistle cheer snore bubbles drip clink trumpet chirp roar crunch fiddle
+   VoiceSound.music(style)         start a soft looping tune: japan korea china india france spain italy netherlands brazil australia
    VoiceSound.stopMusic()          stop the tune
    VoiceSound.setLevels(sfx, mus)  0..1 volumes
    The context is created on the first call, which must come from a tap (iPad rule). */
@@ -47,6 +48,17 @@
     howl: function (t) { var o = osc('sine', 320, t, 1.8, 0.25, null, 0.3); o.frequency.linearRampToValueAtTime(620, t + 0.6); o.frequency.linearRampToValueAtTime(480, t + 1.9); },
     bell: function (t) { [0, 0.45].forEach(function (d) { osc('sine', 1180, t + d, 1.0, 0.2); osc('sine', 2950, t + d, 0.5, 0.06); }); },
     gulp: function (t) { var o = osc('sine', 320, t, 0.18, 0.5); o.frequency.exponentialRampToValueAtTime(110, t + 0.16); },
+    whistle: function (t) { var o = osc('sine', 1900, t, 0.5, 0.25, null, 0.02); o.frequency.linearRampToValueAtTime(2500, t + 0.25); o.frequency.linearRampToValueAtTime(2100, t + 0.5); },
+    cheer: function (t) { for (var i = 0; i < 7; i++) noise(t + i * 0.09, 0.7, 0.18, 'bandpass', 900 + (i % 3) * 350, 1.5, null, 0.15); },
+    snore: function (t) { [0, 1.1].forEach(function (d) { var f = noise(t + d, 0.9, 0.35, 'lowpass', 350, 3, null, 0.35); f.frequency.linearRampToValueAtTime(160, t + d + 0.9); osc('sawtooth', 70, t + d + 0.45, 0.4, 0.08, null, 0.2); }); },
+    bubbles: function (t) { for (var i = 0; i < 9; i++) { var o = osc('sine', 420 + Math.random() * 500, t + i * 0.11, 0.09, 0.2); o.frequency.exponentialRampToValueAtTime(1300 + Math.random() * 600, t + i * 0.11 + 0.08); } },
+    drip: function (t) { var o = osc('sine', 1500, t, 0.18, 0.4, null, 0.002); o.frequency.exponentialRampToValueAtTime(600, t + 0.15); osc('sine', 900, t + 0.55, 0.15, 0.2, null, 0.002).frequency.exponentialRampToValueAtTime(420, t + 0.7); },
+    clink: function (t) { [0, 0.16, 0.34].forEach(function (d, i) { osc('sine', 2300 + i * 380, t + d, 0.25, 0.15); osc('sine', 3700 + i * 200, t + d, 0.12, 0.06); }); },
+    trumpet: function (t) { [[0, 392], [0.16, 392], [0.32, 392], [0.5, 523], [0.95, 659]].forEach(function (n) { var o = osc('sawtooth', n[1], t + n[0], n[0] > 0.9 ? 0.7 : 0.28, 0.14, null, 0.02); }); },
+    chirp: function (t) { [0, 0.2, 0.4, 0.9, 1.1, 1.3].forEach(function (d) { osc('sine', 4200, t + d, 0.05, 0.12, null, 0.003); }); },
+    roar: function (t) { var o = osc('sawtooth', 95, t, 1.5, 0.35, null, 0.08); o.frequency.linearRampToValueAtTime(60, t + 1.4); noise(t, 1.4, 0.35, 'lowpass', 700, 1, null, 0.08); },
+    crunch: function (t) { for (var i = 0; i < 6; i++) noise(t + i * 0.28 + Math.random() * 0.06, 0.07, 0.45, 'highpass', 1800, 1); },
+    fiddle: function (t) { [[0, 659], [0.2, 784], [0.4, 880], [0.6, 784], [0.8, 659], [1.1, 587]].forEach(function (n) { var o = osc('sawtooth', n[1], t + n[0], 0.3, 0.06, null, 0.03), l = ctx.createOscillator(), lg = ctx.createGain(); l.frequency.value = 6; lg.gain.value = 5; l.connect(lg); lg.connect(o.frequency); l.start(t + n[0]); l.stop(t + n[0] + 0.4); }); },
     magic: function (t) { [0, 4, 7, 12, 16, 19, 24].forEach(function (s, i) { osc('triangle', 784 * Math.pow(2, s / 12), t + i * 0.07, 0.4, 0.12); }); }
   };
 
@@ -97,6 +109,16 @@
     // Dutch barrel organ march
     netherlands: { bpm: 104, beats: 8, root: 60, play: function (b, t, sec) {
       var mel = [72, 76, 79, 76, 77, 74, 71, 74], bass = [48, 55, 48, 55, 50, 55, 43, 55]; organ(mel[b], t, sec * 0.8, 0.08); organ(bass[b], t, sec * 0.5, 0.06); } },
+    // Indian raga-flavoured sitar-like pluck over a drone (Bhairav scale)
+    india: { bpm: 68, beats: 8, root: 62, play: function (b, t, sec) {
+      var mel = [0, 1, 4, 5, 7, 5, 4, 1]; pluck(62 + mel[b], t, sec * 1.8, 'sawtooth', 0.22, 2200);
+      if (b === 0) pad(50, t, sec * 8, 'sawtooth', 0.05); if (b === 0 || b === 4) pluck(50, t, sec * 3, 'sawtooth', 0.2, 700); } },
+    // Brazilian samba-style: bouncy guitar chords with a shaker
+    brazil: { bpm: 112, beats: 8, root: 57, play: function (b, t, sec) {
+      var bass = [45, null, 52, null, 47, null, 52, null], chord = [[57, 61, 64], [57, 61, 64], [59, 62, 66], [59, 62, 66]];
+      if (bass[b]) pluck(bass[b], t, sec * 1.6, 'triangle', 0.4, 700);
+      if (b % 2 === 1 || b === 2) chord[Math.floor(b / 2)].forEach(function (m) { pluck(m + 12, t, sec * 0.6, 'triangle', 0.11, 2600); });
+      noise(t, 0.06, 0.18, 'highpass', 6000, 1, musBus); noise(t + sec / 2, 0.05, 0.1, 'highpass', 6000, 1, musBus); } },
     // Australian didgeridoo-like drone with clapsticks
     australia: { bpm: 96, beats: 8, root: 38, play: function (b, t, sec) {
       if (b === 0) { var o = ctx.createOscillator(), f = ctx.createBiquadFilter(), g = ctx.createGain(), l = ctx.createOscillator(), lg = ctx.createGain(), d = sec * 8;

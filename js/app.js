@@ -3,7 +3,7 @@
    Plain script, no build. Stories: stories/<id>.js; audio + word timings: stories/<id>.audio.js. */
 (function () {
   'use strict';
-  var VERSION = '0.4.1';
+  var VERSION = '0.5.0';
   var STORIES = window.VOICE_STORIES || [];
   var AUDIO = window.VOICE_AUDIO || {};
   // Script stories (story.script + story.cast): each line is one paragraph.
@@ -13,9 +13,9 @@
     en: { name: 'English', speech: 'en-US' }, zh: { name: '中文', speech: 'zh-CN' }, ja: { name: '日本語', speech: 'ja-JP' },
     fr: { name: 'Français', speech: 'fr-FR' }, es: { name: 'Español', speech: 'es-ES' }, it: { name: 'Italiano', speech: 'it-IT' },
     ko: { name: '한국어', speech: 'ko-KR' }, nl: { name: 'Nederlands', speech: 'nl-NL' }, pt: { name: 'Português', speech: 'pt-BR' },
-    hi: { name: 'हिन्दी', speech: 'hi-IN' }, au: { name: 'Aussie English', speech: 'en-AU' }
+    hi: { name: 'हिन्दी', speech: 'hi-IN' }, au: { name: 'Aussie English', speech: 'en-AU' }, da: { name: 'Dansk', speech: 'da-DK' }
   };
-  var LANG_ORDER = ['en', 'zh', 'ja', 'ko', 'fr', 'es', 'it', 'nl', 'pt', 'hi', 'au'];
+  var LANG_ORDER = ['en', 'zh', 'ja', 'ko', 'fr', 'es', 'it', 'nl', 'da', 'pt', 'hi', 'au'];
   function isCJK(l) { return l === 'zh' || l === 'ja'; }
   function cjkCount(w) { return (w.match(/[\u3040-\u30ff\u4e00-\u9fff]/g) || []).length; }
   function byId(id) { return STORIES.filter(function (x) { return x.id === id; })[0]; }
@@ -68,7 +68,7 @@
     });
     return list;
   }
-  var PUNCT = /^[\s"'“”‘’「」『』（）()«»，。！？；：、,.!?;:—-]+$/;
+  var PUNCT = /^[\s"'“”‘’「」『』（）()«»，。！？；：、,.!?;:—।-]+$/;
   function browserTokens(par, lang) {
     if (!isCJK(lang)) return par.split(/\s+/).filter(Boolean);
     var parts = [];
@@ -113,8 +113,13 @@
       b.innerHTML = '<span class="cover">' + st.cover + '</span><span class="t"></span><span class="sub"></span><span class="len"></span><span class="go">▶</span>';
       b.querySelector('.t').textContent = st.title;
       b.querySelector('.sub').textContent = st.subtitle || '';
-      b.querySelector('.len').textContent = '🎧 ' + len + '  ·  ' + sibs.map(function (x) { return (LANG[x.lang] || { name: x.lang }).name; }).join(' · ');
-      b.lang = st.lang;
+      var lenEl = b.querySelector('.len');
+      lenEl.textContent = '🎧 ' + len + ' · ';
+      sibs.forEach(function (x, i) {
+        var lg = document.createElement('span'); lg.className = 'lg'; lg.textContent = (LANG[x.lang] || { name: x.lang }).name + (i < sibs.length - 1 ? ' ·' : '');
+        lenEl.appendChild(lg); if (i < sibs.length - 1) lenEl.appendChild(document.createTextNode(' '));
+      });
+      b.lang = (LANG[st.lang] || LANG.en).speech;
       b.addEventListener('click', function () { location.hash = 'story=' + st.id + '&mode=read'; });
       home.appendChild(b);
     });
@@ -145,7 +150,7 @@
     box.innerHTML = ''; box.hidden = sibs.length < 2;
     sibs.forEach(function (x) {
       var b = document.createElement('button'); b.type = 'button'; b.textContent = (LANG[x.lang] || { name: x.lang }).name;
-      b.classList.toggle('on', x === cur.story); b.lang = x.lang;
+      b.classList.toggle('on', x === cur.story); b.lang = (LANG[x.lang] || LANG.en).speech;
       b.addEventListener('click', function () { settings.langPick[groupOf(x)] = x.id; save(); location.hash = 'story=' + x.id + '&mode=' + cur.mode; });
       box.appendChild(b);
     });
@@ -186,7 +191,7 @@
 
   function openRead() {
     var st = cur.story, text = $('text');
-    text.lang = st.lang;
+    text.lang = (LANG[st.lang] || LANG.en).speech;
     text.innerHTML = '';
     var sep = isCJK(st.lang) ? '' : ' ', pEl = null, lastP = -1;
     var script = st.script;
@@ -436,7 +441,7 @@
   }
   function lineWeights(p) {
     var ws = [], gs = [];
-    cur.flat.forEach(function (tk, g) { if (tk.p === p) { gs.push(g); ws.push(isCJK(cur.story.lang) ? Math.max(1, cjkCount(tk.text)) : tk.text.replace(/[^\p{L}\p{N}]/gu, '').length + 1); } });
+    cur.flat.forEach(function (tk, g) { if (tk.p === p) { gs.push(g); ws.push(isCJK(cur.story.lang) ? Math.max(1, cjkCount(tk.text)) : tk.text.replace(/[^\p{L}\p{N}\p{M}]/gu, '').length + 1); } });
     return { gs: gs, ws: ws, tot: ws.reduce(function (a, b) { return a + b; }, 0) };
   }
   function liveFrom(g) {
@@ -491,9 +496,11 @@
       var k = Math.floor((core.length - 1) / 2);
       return [m[1] + core.slice(0, k), core.charAt(k), core.slice(k + 1) + m[3]];
     }
-    var mm = w.match(/^([^\p{L}\p{N}]*)(.*?)([^\p{L}\p{N}]*)$/u), c = mm[2] || w, n = c.length;
+    var mm = w.match(/^([^\p{L}\p{N}\p{M}]*)(.*?)([^\p{L}\p{N}\p{M}]*)$/u), c = mm[2] || w;
+    // split into whole letters (a letter plus its accents or vowel signs), so Hindi and French never break a mark off its letter
+    var ch = (window.Intl && Intl.Segmenter) ? Array.from(new Intl.Segmenter(undefined, { granularity: 'grapheme' }).segment(c), function (x) { return x.segment; }) : Array.from(c), n = ch.length;
     var o = n <= 1 ? 0 : n <= 5 ? 1 : n <= 9 ? 2 : n <= 13 ? 3 : 4;
-    return [mm[1] + c.slice(0, o), c.charAt(o), c.slice(o + 1) + mm[3]];
+    return [mm[1] + ch.slice(0, o).join(''), ch[o] || '', ch.slice(o + 1).join('') + mm[3]];
   }
   function showWord(r) {
     var tk = cur.flat[r];
@@ -504,9 +511,9 @@
   }
   function delay(r) {
     var tk = cur.flat[r], base = 60000 / settings.wpm, w = tk.text, end = w.replace(/["'”’」』»）)]+$/, '').slice(-1);
-    var len = isCJK(cur.story.lang) ? cjkCount(w) * 2.5 : w.replace(/[^\p{L}\p{N}]/gu, '').length;
+    var len = isCJK(cur.story.lang) ? cjkCount(w) * 2.5 : w.replace(/[^\p{L}\p{N}\p{M}]/gu, '').length;
     var f = 1 + Math.max(0, len - 6) * 0.08;
-    if (/[.!?。！？]/.test(end)) f *= 2.2; else if (/[,;:，；：、]/.test(end)) f *= 1.5;
+    if (/[.!?。！？।]/.test(end)) f *= 2.2; else if (/[,;:，；：、]/.test(end)) f *= 1.5;
     var next = cur.flat[r + 1];
     if (next && next.p !== tk.p) f *= 1.4;
     return base * f;
@@ -533,7 +540,7 @@
     rsvpStep();
   }
   function sentenceStart(r) {
-    var ends = function (k) { return k >= 0 && /[.!?。！？]["'”’」）)]*$/.test(cur.flat[k].text); };
+    var ends = function (k) { return k >= 0 && /[.!?。！？।]["'”’」』»）)]*$/.test(cur.flat[k].text); };
     var k = r - 1;
     while (k >= 0 && !ends(k)) k--;
     if (k + 1 === r && r > 0) { k--; while (k >= 0 && !ends(k)) k--; }
