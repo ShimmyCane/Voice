@@ -3,7 +3,7 @@
    Plain script, no build. Stories: stories/<id>.js; audio + word timings: stories/<id>.audio.js. */
 (function () {
   'use strict';
-  var VERSION = '0.4.1';
+  var VERSION = '0.5.0';
   var STORIES = window.VOICE_STORIES || [];
   var AUDIO = window.VOICE_AUDIO || {};
   // Script stories (story.script + story.cast): each line is one paragraph.
@@ -113,7 +113,12 @@
       b.innerHTML = '<span class="cover">' + st.cover + '</span><span class="t"></span><span class="sub"></span><span class="len"></span><span class="go">▶</span>';
       b.querySelector('.t').textContent = st.title;
       b.querySelector('.sub').textContent = st.subtitle || '';
-      b.querySelector('.len').textContent = '🎧 ' + len + '  ·  ' + sibs.map(function (x) { return (LANG[x.lang] || { name: x.lang }).name; }).join(' · ');
+      var lenEl = b.querySelector('.len');
+      lenEl.textContent = '🎧 ' + len + ' · ';
+      sibs.forEach(function (x, i) {
+        var lg = document.createElement('span'); lg.className = 'lg'; lg.textContent = (LANG[x.lang] || { name: x.lang }).name + (i < sibs.length - 1 ? ' ·' : '');
+        lenEl.appendChild(lg); if (i < sibs.length - 1) lenEl.appendChild(document.createTextNode(' '));
+      });
       b.lang = (LANG[st.lang] || LANG.en).speech;
       b.addEventListener('click', function () { location.hash = 'story=' + st.id + '&mode=read'; });
       home.appendChild(b);

@@ -26,9 +26,10 @@ A story shelf for the kids on the iPad. Stories play in natural Kokoro voices, e
 - `js/app.js`: Danish, grapheme-aware focus letter (Hindi, French), danda sentence end, valid language tags (`en-AU` for Aussie).
 
 ## Verified vs. unverified
-- Verified (headless Chromium): three sizes, zero errors, no horizontal scroll, the recorded tracks play with highlight, script story labels and notes toggle, Kokoro live end to end. In the live test, HuggingFace and jsDelivr were redirected to local copies: the real kokoro-q8 weights and kokoro-js voices, the ORT wasm from npm @huggingface/transformers 3.5.1, and a **reconstructed** tokenizer.json and config.json (the real ones could not be downloaded here). In the container it made 1.7 s of speech in 4.9 s on one WASM thread.
-- Unverified: the real HF tokenizer/config files (the page will use them on the iPad), live speed on the iPad, WebGPU engine, how the audio sounds (no listening possible here).
+- Verified (headless Chromium, 2026-11-10): the shelf shows 13 cards at 390, 768 and 1180 px with no horizontal scroll and zero errors; all 39 story files load, show every line, speaker label and director's note; all 35 recorded versions match their text (none stale), play, and move the highlight; the speed-read focus letter is a whole letter in every language including Hindi; Kokoro live (0.3) was tested earlier with local copies of the HuggingFace files.
+- Unverified: **nobody has listened to any of the 26 new narrations** (no listening possible here); the 11 new sound effects and 2 new tunes (synthesized, only checked for errors); the iPad voice for Korean, Dutch, Danish and Aussie English (headless has no voices); real iPad Safari; the 4 iPad-voice versions have no recorded audio at all.
+- Known weak spots: Italian (two voices) and French (one voice) share voices between characters; Hindi and Portuguese untried by a native ear; the new stories are short (12 to 14 lines).
 
 ## Next steps
-1. Jimmy listens, tries live on the iPad, and answers `convo/convo v0.5.md` and `v0.4.md`.
+1. Jimmy listens to the new narrations and answers `convo/convo v0.6.md`, `v0.5.md` and `v0.4.md`.
 2. Turn on GitHub Pages; give the fisherman a cast; 0.5 database.
