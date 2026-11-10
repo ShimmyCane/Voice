@@ -12,3 +12,5 @@
 - [ ] 0.5 Family database: `voice_stories`, `voice_versions`, `voice_notes`, bucket `voice-audio`, sign-in, device cache
 - [ ] 0.6 ✨ Make voice (Kokoro in the browser, no key), versions and restore
 - [x] Voice added to the root `index.html` Nursery list (Jimmy asked, 2026-11-09)
+- [x] Moved to its own repo, ShimmyCane/Voice (2026-11-10)
+- [ ] Turn on GitHub Pages for this repo (Settings → Pages → main, root) and point the Index nursery tile at it
