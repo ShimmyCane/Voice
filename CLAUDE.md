@@ -1,6 +1,6 @@
 # Voice — Claude Code guide
 
-A shelf of family stories for the kids on the iPad, narrated by Kokoro, a free open voice model. Audio is made ahead of time (or live in the browser, English only). Every story comes in English, 中文 and a third language from its part of the world, with a synthesized tune. Read along with the spoken word highlighted, speed read (red focus letter, drag speed slider), and 🎬 director's notes with sound effects.
+A shelf of family stories for the kids on the iPad, narrated by Kokoro, a free open voice model. Audio is made ahead of time (or live in the browser, English only). Thirteen stories, each in English, 中文 and a third language from its part of the world, with a synthesized tune. Read along with the spoken word highlighted, speed read (red focus letter, drag speed slider), and 🎬 director's notes with sound effects.
 
 This project grew up in the Index nursery (`ShimmyCane/Index`, `03 Projects/Voice/`) and moved here on 2026-11-10. **This repo is public:** treat every commit as published.
 

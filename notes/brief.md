@@ -1,7 +1,7 @@
 # Voice — AI Brief
 
 **Updated:** 2026-11-10 (moved from `ShimmyCane/Index`, `04 AI/Voice/brief.md`)
-**Status:** MVP 0.4.1, not device-tested. Lives in its own repo (`ShimmyCane/Voice`) since 2026-11-10. Open questions in `convo/convo v0.5.md` and `v0.4.md` (earlier rounds still open too).
+**Status:** MVP 0.5.0, not device-tested. Thirteen stories. Open questions in `convo/convo v0.6.md`, `v0.5.md`, `v0.4.md`.
 **Track:** A. Family play.
 
 ## Goal
@@ -19,6 +19,11 @@ A story shelf for the kids on the iPad. Stories play in natural Kokoro voices, e
 - Director's notes kinds: motivation, acting, sound (+sfx), blocking, gesture, thought; tone shows as Voice. Pop-open via grid-template-rows 0fr→1fr and staggered keyframes.
 - `js/sound.js`: 13 synthesized effects, 8 culture tunes (lookahead scheduler, 120 ms tick). The music follows the play state through setPlayIcon; the effect plays when the highlight enters a new line.
 - `story_list.md`: 3 on the shelf, 10 planned, with third language, tune and voice support.
+
+## 0.5 additions
+- Ten new script stories (`story_list.md`), each as `<id>.js` (EN), `<id>_zh.js`, `<id>_<code>.js`; generated from two data tables (not kept in the repo) so the notes, cast and line order match across languages. 26 new Kokoro narrations. Korean, Dutch, Danish and Aussie English versions have no audio file and use the iPad voice.
+- `js/sound.js`: 24 effects and 10 tunes (added india, brazil).
+- `js/app.js`: Danish, grapheme-aware focus letter (Hindi, French), danda sentence end, valid language tags (`en-AU` for Aussie).
 
 ## Verified vs. unverified
 - Verified (headless Chromium): three sizes, zero errors, no horizontal scroll, the recorded tracks play with highlight, script story labels and notes toggle, Kokoro live end to end. In the live test, HuggingFace and jsDelivr were redirected to local copies: the real kokoro-q8 weights and kokoro-js voices, the ORT wasm from npm @huggingface/transformers 3.5.1, and a **reconstructed** tokenizer.json and config.json (the real ones could not be downloaded here). In the container it made 1.7 s of speech in 4.9 s on one WASM thread.
