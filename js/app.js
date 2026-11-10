@@ -1,8 +1,9 @@
-/* Voice 0.2.0 — story shelf, read along (recorded voice or iPad voice), speed read, ⚙️.
+/* Voice — story shelf, read along (recorded, live Kokoro or iPad voice), speed read, three languages per story,
+   director's notes, sound effects and tunes (js/sound.js), ⚙️. Version in VERSION below and in index.html (?v= tags).
    Plain script, no build. Stories: stories/<id>.js; audio + word timings: stories/<id>.audio.js. */
 (function () {
   'use strict';
-  var VERSION = '0.4.0';
+  var VERSION = '0.4.1';
   var STORIES = window.VOICE_STORIES || [];
   var AUDIO = window.VOICE_AUDIO || {};
   // Script stories (story.script + story.cast): each line is one paragraph.

@@ -1,7 +1,7 @@
 # Voice — Schematic
 
 **Track:** A. Family play (stories for the kids on the iPad). The writing and voice-making side is a small grown-up corner inside ⚙️.
-**Status:** MVP 0.4.0 (2026-11-09, not yet device-tested). Three stories, each in English, 中文 and a third language (日本語, Español, Français) with a tune from that culture; 🎬 director's notes with sound effects. Story list in `story_list.md`. Decisions in `convo/convo v0.4.md`.
+**Status:** MVP 0.4.1 (not yet device-tested). Moved out of the Index nursery into its own repo on 2026-11-10; 0.4.1 is 0.4.0 plus the move fixes (cache-busting tags, standalone notes). Three stories, each in English, 中文 and a third language (日本語, Español, Français) with a tune from that culture; 🎬 director's notes with sound effects. Story list in `story_list.md`. Decisions in `convo/`.
 
 ## 1. The idea in one paragraph
 
@@ -43,10 +43,10 @@ Three-tier fallback (Jimmy's preferred pattern):
 - ▶/⏸, step back one sentence. The audio is off in this mode: a recording plays at its own pace and cannot follow the slider.
 - A small "best speed" record per reader on the device.
 
-### 3.4 ⚙️ Settings drawer (`02 Refs/Skills/settings_gear.md`)
+### 3.4 ⚙️ Settings drawer (the nursery's settings-gear pattern)
 - Voice: Story voice (recorded) | iPad voice, and which iPad voice.
 - Text size, highlight on/off, Speed-read default speed.
-- **Notes for improvement** (`02 Refs/Skills/feedback_notes.md`): each note saved with the story id, its version, the mode (read along or speed read) and the time.
+- **Notes for improvement** (the nursery's feedback-notes pattern): each note saved with the story id, its version, the mode (read along or speed read) and the time.
 - **Family sign-in** (the Family login, same as other family apps).
 - **Grown-up corner** (signed in only): add or edit a story, ✨ Make voice, see versions and restore one.
 - Database check, Show errors (errors at the bottom, opt-in).
