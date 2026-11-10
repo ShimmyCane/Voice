@@ -25,5 +25,5 @@ A story shelf for the kids on the iPad. Stories play in natural Kokoro voices, e
 - Unverified: the real HF tokenizer/config files (the page will use them on the iPad), live speed on the iPad, WebGPU engine, how the audio sounds (no listening possible here).
 
 ## Next steps
-1. Jimmy listens, tries live on the iPad, answers `convo v0.3.md`.
-2. Fisherman cast; 0.4 database.
+1. Jimmy listens, tries live on the iPad, and answers `convo/convo v0.5.md` and `v0.4.md`.
+2. Turn on GitHub Pages; give the fisherman a cast; 0.5 database.
