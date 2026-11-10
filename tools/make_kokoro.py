@@ -12,9 +12,16 @@ Output, per story and voice:
   stories/<id>.audio.js           word timings for every voice of that story
                                   (window.VOICE_AUDIO[id][trackKey] = {...})
 
-Word timings are estimated: each phrase (up to a comma or full stop) is made
-separately, so phrase starts are exact; words inside a phrase share its length
-by how many sounds they have.
+How it is made (v2, 2026-11-10): each paragraph or dialogue line is spoken in ONE
+request, so the voice keeps its natural rhythm and tone across commas and
+sentences (v1 spoke every comma-sized piece separately, which sounded halting).
+Only the gaps between paragraphs are added by this script, and every piece gets a
+short fade so nothing clicks or is cut off hard.
+
+Word timings are estimated: words share the paragraph's length by how many sounds
+they have, plus extra for the pause after a comma or a full stop. The long pauses
+in the real recording are found and the words after a comma or a full stop are
+snapped to them, so the highlight stays with the voice.
 
 Setup (once, outside the repo; the model files are not committed):
   python3 -m venv venv && . venv/bin/activate
@@ -31,7 +38,9 @@ import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 SR = 24000
-PAUSE = {'comma': 0.18, 'sentence': 0.45, 'para': 0.9}
+GAP = 0.55            # silence between paragraphs or dialogue lines, seconds
+FADE_IN, FADE_OUT = 0.006, 0.03
+HEADROOM = 0.85       # loudest allowed sample before encoding (1.0 is the limit)
 SENT_END = '.!?。！？।'
 PHRASE_END = SENT_END + ',;:，；：、'
 CLOSERS = '"\'”’」』»）)'
@@ -95,22 +104,86 @@ def ends(tok, chars):
     return bool(t) and t[-1] in chars
 
 
-def phrases(tokens):
-    cur = []
-    for i, t in enumerate(tokens):
-        cur.append(i)
-        if ends(t, PHRASE_END) or i == len(tokens) - 1:
-            yield cur
-            cur = []
-
-
-def trim(a, thr=0.008):
+def trim(a, thr=0.003, lead=0.03, tail=0.09):
+    """Cut silence off both ends, but keep a soft tail so a final s or t is not chopped."""
     idx = np.where(np.abs(a) > thr)[0]
     if len(idx) == 0:
         return a
-    s = max(0, idx[0] - int(0.02 * SR))
-    e = min(len(a), idx[-1] + int(0.06 * SR))
+    s = max(0, idx[0] - int(lead * SR))
+    e = min(len(a), idx[-1] + int(tail * SR))
     return a[s:e]
+
+
+def fade(a, fin=FADE_IN, fout=FADE_OUT):
+    a = a.copy()
+    n_in, n_out = min(len(a), int(fin * SR)), min(len(a), int(fout * SR))
+    if n_in: a[:n_in] *= np.linspace(0.0, 1.0, n_in, dtype=np.float32)
+    if n_out: a[-n_out:] *= np.linspace(1.0, 0.0, n_out, dtype=np.float32)
+    return a
+
+
+def silent_runs(a, min_len=0.11):
+    """Long pauses in a recording: (start, length) in seconds."""
+    fr = int(0.01 * SR)
+    n = len(a) // fr
+    if n < 5:
+        return []
+    rms = np.sqrt(np.mean(a[:n * fr].reshape(n, fr) ** 2, axis=1))
+    voiced = rms[rms > 0.25 * np.median(rms[rms > 0])]
+    thr = 0.15 * (np.median(voiced) if len(voiced) else 1.0)
+    runs, i = [], 0
+    while i < n:
+        if rms[i] < thr:
+            j = i
+            while j < n and rms[j] < thr:
+                j += 1
+            if (j - i) * 0.01 >= min_len:
+                runs.append((i * 0.01, (j - i) * 0.01))
+            i = j
+        else:
+            i += 1
+    return runs
+
+
+def word_times(toks, a, lang):
+    """[start, end] seconds for each token inside the recording a (already trimmed)."""
+    total = len(a) / SR
+    cjk = lang in ('zh', 'ja')
+    w = []
+    for t in toks:
+        n = len(re.findall(CJK, t)) if cjk else len(re.sub(r'[\W\d_]', '', t)) + 1
+        w.append(max(1, n))
+    pc, ps = (1.2, 2.5) if cjk else (3.0, 5.0)
+    pause = [ps if ends(t, SENT_END) else pc if ends(t, PHRASE_END) else 0.0 for t in toks]
+    wt = [x + p for x, p in zip(w, pause)]
+    tot = float(sum(wt)) or 1.0
+    start, acc = [], 0.0
+    for x in wt:
+        start.append(total * acc / tot)
+        acc += x
+    # expected centre of each pause (after the word's own sounds), then snap to a real long pause
+    runs = silent_runs(a)
+    anchors, last_c = [], -1.0
+    for i, t in enumerate(toks[:-1]):
+        if pause[i] == 0:
+            continue
+        exp_c = total * (sum(wt[:i]) + w[i] + pause[i] / 2) / tot
+        best = None
+        for (rs, rl) in runs:
+            c = rs + rl / 2
+            if c > last_c and abs(c - exp_c) <= 0.7 and (best is None or abs(c - exp_c) < abs(best[0] - exp_c)):
+                best = (c, rs + rl)
+        if best:
+            anchors.append((start[i + 1], best[1]))      # (where the plan put the next word, where it really starts)
+            last_c = best[0]
+    if anchors:
+        xs = [0.0] + [x for x, _ in anchors] + [total]
+        ys = [0.0] + [y for _, y in anchors] + [total]
+        for k in range(1, len(xs)):                       # keep it in order
+            ys[k] = max(ys[k], ys[k - 1])
+        start = [float(np.interp(x, xs, ys)) for x in start]
+    ends_ = start[1:] + [total]
+    return [[round(s_, 3), round(e_, 3)] for s_, e_ in zip(start, ends_)]
 
 
 def build_voices(js_voice_dir, out):
@@ -127,42 +200,41 @@ def line_voice(story, p, voice):
     return voice, (0.9 if story['lang'] in ('zh', 'ja') else 0.92)
 
 
+def synth(kokoro, lang, text, v, speed, g2p):
+    if lang in ('zh', 'ja'):
+        pho = g2p[lang](text)
+        pho = pho[0] if isinstance(pho, tuple) else pho
+        pho = ''.join(ZH_PUNCT.get(c, c) for c in pho)
+        audio, _ = kokoro.create(pho, voice=v, is_phonemes=True, speed=speed)
+    elif lang in ESPEAK:
+        audio, _ = kokoro.create(text, voice=v, speed=speed, lang=ESPEAK[lang])
+    else:
+        audio, _ = kokoro.create(text, voice=v, speed=speed, lang='en-us' if v[0] == 'a' else 'en-gb')
+    return np.asarray(audio, dtype=np.float32)
+
+
 def make(story, voice, kokoro, g2p):
     lang = story['lang']
     words_out, chunks, t = [], [], 0.0
+    gap = np.zeros(int(GAP * SR), dtype=np.float32)
+    n_par = len(story['paragraphs'])
     for p, par in enumerate(story['paragraphs']):
         v, speed = line_voice(story, p, voice)
         toks = tokenize(par, lang)
-        row = [[w, 0, 0] for w in toks]
-        for ph in phrases(toks):
-            text = (''.join if lang in ('zh', 'ja') else ' '.join)(toks[i] for i in ph)
-            if lang in ('zh', 'ja'):
-                pho = g2p[lang](text)
-                pho = pho[0] if isinstance(pho, tuple) else pho
-                pho = ''.join(ZH_PUNCT.get(c, c) for c in pho)
-                audio, _ = kokoro.create(pho, voice=v, is_phonemes=True, speed=speed)
-                weights = [max(1, len(re.findall(CJK, toks[i]))) for i in ph]
-            elif lang in ESPEAK:
-                audio, _ = kokoro.create(text, voice=v, speed=speed, lang=ESPEAK[lang])
-                weights = [max(1, len(re.sub(r'[\W\d_]', '', toks[i]))) + 1 for i in ph]
-            else:
-                audio, _ = kokoro.create(text, voice=v, speed=speed, lang='en-us' if v[0] == 'a' else 'en-gb')
-                weights = [max(1, len(re.sub(r'[^A-Za-z]', '', toks[i]))) + 1 for i in ph]
-            audio = trim(np.asarray(audio, dtype=np.float32))
-            d = len(audio) / SR
-            tot, acc = float(sum(weights)), 0.0
-            for i, w in zip(ph, weights):
-                row[i][1] = round(t + d * acc / tot, 3)
-                acc += w
-                row[i][2] = round(t + d * acc / tot, 3)
-            chunks.append(audio)
-            t += d
-            last = toks[ph[-1]]
-            gap = PAUSE['para'] if ph[-1] == len(toks) - 1 else PAUSE['sentence'] if ends(last, SENT_END) else PAUSE['comma']
-            chunks.append(np.zeros(int(gap * SR), dtype=np.float32))
-            t += gap
-        words_out.append(row)
-    return np.concatenate(chunks), words_out, round(t, 2)
+        text = (''.join if lang in ('zh', 'ja') else ' '.join)(toks)
+        audio = fade(trim(synth(kokoro, lang, text, v, speed, g2p)))
+        times = word_times(toks, audio, lang)
+        words_out.append([[w, round(t + a, 3), round(t + b, 3)] for w, (a, b) in zip(toks, times)])
+        chunks.append(audio)
+        t += len(audio) / SR
+        if p < n_par - 1:
+            chunks.append(gap)
+            t += GAP
+    out = np.concatenate(chunks)
+    peak = float(np.abs(out).max()) if len(out) else 0.0
+    if peak > HEADROOM:                       # leave room for the MP3 encoder so no sample goes over 1.0
+        out = out * (HEADROOM / peak)
+    return out, words_out, round(t, 2)
 
 
 def main():
