@@ -11,6 +11,7 @@
 - [ ] Write the next story from `story_list.md`
 - [ ] 0.5 Family database: `voice_stories`, `voice_versions`, `voice_notes`, bucket `voice-audio`, sign-in, device cache
 - [ ] 0.6 ✨ Make voice (Kokoro in the browser, no key), versions and restore
-- [x] Voice added to the root `index.html` Nursery list (Jimmy asked, 2026-11-09)
 - [x] Moved to its own repo, ShimmyCane/Voice (2026-11-10)
-- [ ] Turn on GitHub Pages for this repo (Settings → Pages → main, root) and point the Index nursery tile at it
+- [ ] **Turn on GitHub Pages** for this repo (Settings → Pages → Deploy from a branch → main, / root). Link: https://shimmycane.github.io/Voice/
+- [ ] Point the Voice tile on the Index home page at the Pages link (Jimmy to ask; that file is human-only) and decide whether to keep the old copy in Index (`03 Projects/Voice/`, frozen at 0.4.0)
+- [ ] On the iPad, open ⚙️ and check the bottom line says the current version (see `notes/brief.md`)
