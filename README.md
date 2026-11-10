@@ -7,7 +7,9 @@ A shelf of family stories for the kids on the iPad, narrated by [Kokoro](https:/
 - **🎬 Director's notes** open from ⚙️: why each character speaks, how to act it, sounds, moves and thoughts. Sound effects play on cue.
 - **Voices:** made ahead of time (works offline), **live in the browser** (English), or the iPad's own voice.
 
-**Current version: 0.5.0.** To check which version a device is running, open ⚙️ and read the bottom line.
+**Current version: 0.5.1.** To check which version a device is running, open ⚙️ and read the bottom line.
+
+**Known issue:** the audio is expected to be problematic on some devices. See `CHANGELOG.md`.
 
 ## Run it
 

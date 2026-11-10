@@ -1,7 +1,7 @@
 # Voice — Schematic
 
 **Track:** A. Family play (stories for the kids on the iPad). The writing and voice-making side is a small grown-up corner inside ⚙️.
-**Status:** MVP 0.5.0 (2026-11-10, not yet device-tested). Thirteen stories on the shelf, each in English, 中文 and a third language (日本語, Español, Français, Italiano, Português, हिन्दी recorded by Kokoro; 한국어, Nederlands, Dansk and Aussie English read by the iPad voice), with a tune from that culture; 🎬 director's notes with sound effects. Story list in `story_list.md`. Decisions in `convo/`.
+**Status:** MVP 0.5.1 (2026-11-10, not yet device-tested). Thirteen stories on the shelf, each in English, 中文 and a third language (日本語, Español, Français, Italiano, Português, हिन्दी recorded by Kokoro; 한국어, Nederlands, Dansk and Aussie English read by the iPad voice), with a tune from that culture; 🎬 director's notes with sound effects. Story list in `story_list.md`. Decisions in `convo/`.
 
 ## 1. The idea in one paragraph
 

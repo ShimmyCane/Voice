@@ -1,7 +1,7 @@
 # Voice — AI Brief
 
 **Updated:** 2026-11-10 (moved from `ShimmyCane/Index`, `04 AI/Voice/brief.md`)
-**Status:** MVP 0.5.0, not device-tested. Thirteen stories. Open questions in `convo/convo v0.6.md`, `v0.5.md`, `v0.4.md`.
+**Status:** MVP 0.5.1, not device-tested by Claude. Thirteen stories. **Known issue: the audio is expected to be problematic on some devices** (see `CHANGELOG.md`). Open questions in `convo/convo v0.6.md`, `v0.5.md`, `v0.4.md`.
 **Track:** A. Family play.
 
 ## Goal
@@ -24,6 +24,10 @@ A story shelf for the kids on the iPad. Stories play in natural Kokoro voices, e
 - Ten new script stories (`story_list.md`), each as `<id>.js` (EN), `<id>_zh.js`, `<id>_<code>.js`; generated from two data tables (not kept in the repo) so the notes, cast and line order match across languages. 26 new Kokoro narrations. Korean, Dutch, Danish and Aussie English versions have no audio file and use the iPad voice.
 - `js/sound.js`: 24 effects and 10 tunes (added india, brazil).
 - `js/app.js`: Danish, grapheme-aware focus letter (Hindi, French), danda sentence end, valid language tags (`en-AU` for Aussie).
+
+## Known audio issue (2026-11-10)
+- Jimmy hears stutter and drawn-out syllables at random places on Windows (Edge, VLC), in every test file (MP3, raw WAV, converted WAV, 48 kHz), and not on the iPad. Same files, same bytes each play, so not a fault in the files; checks found no dropouts or jumps. Likely the Windows audio output; not proven. Decision: leave the recordings alone. Full note in `CHANGELOG.md`.
+- Unmerged: branch `claude/smoother-voice` (audio maker v2, whole lines per request, fades, headroom, snapped highlight times; fisherman and ant_grasshopper re-made). Jimmy found the new pauses slightly better.
 
 ## Verified vs. unverified
 - Verified (headless Chromium, 2026-11-10): the shelf shows 13 cards at 390, 768 and 1180 px with no horizontal scroll and zero errors; all 39 story files load, show every line, speaker label and director's note; all 35 recorded versions match their text (none stale), play, and move the highlight; the speed-read focus letter is a whole letter in every language including Hindi; Kokoro live (0.3) was tested earlier with local copies of the HuggingFace files.
