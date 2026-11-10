@@ -3,7 +3,7 @@
    Plain script, no build. Stories: stories/<id>.js; audio + word timings: stories/<id>.audio.js. */
 (function () {
   'use strict';
-  var VERSION = '0.5.0';
+  var VERSION = '0.5.1';
   var STORIES = window.VOICE_STORIES || [];
   var AUDIO = window.VOICE_AUDIO || {};
   // Script stories (story.script + story.cast): each line is one paragraph.
@@ -223,7 +223,7 @@
       var s = document.createElement('span'); s.className = 'w'; s.dataset.g = g; s.textContent = tk.text;
       pEl.appendChild(s);
     });
-    nowEl = null;
+    nowEl = null; lastG = -2;      // a new story has a fresh page: forget the last highlighted word
     renderVoices();
     loadTrack();
   }
@@ -256,7 +256,11 @@
 
   function loadTrack() {
     var t = trackData(currentTrack());
-    if (t) { if (audio.getAttribute('src') !== t.src) audio.src = t.src; audio.playbackRate = +settings.rate; }
+    if (t) {
+      var want = t.src + '?v=' + VERSION;      // a new version always fetches fresh audio, never an old cached copy
+      if (audio.getAttribute('src') !== want) audio.src = want;
+      audio.playbackRate = +settings.rate;
+    }
     else { audio.removeAttribute('src'); audio.load(); }
     setPlayIcon(false); updateTime();
   }
@@ -303,10 +307,14 @@
     cancelAnimationFrame(raf);
     var t = trackData(currentTrack());
     if (!t || audio.paused) return;
-    highlight(gAt(t, audio.currentTime)); updateTime();
+    var g = gAt(t, audio.currentTime);
+    if (g !== lastG) highlight(g);      // only when the word changes, not on every frame
+    updateTime();
     raf = requestAnimationFrame(tick);
   }
+  var lastG = -2, lastScroll = 0, lastTimeText = '';
   function highlight(g) {
+    lastG = g;
     if (nowEl) nowEl.classList.remove('now');
     nowEl = g >= 0 ? $('text').querySelector('[data-g="' + g + '"]') : null;
     if (!nowEl) return;
@@ -314,7 +322,8 @@
     lineSfx(g);
     if (isPlaying()) {
       var r = nowEl.getBoundingClientRect();
-      if (r.top < 70 || r.bottom > window.innerHeight - 120) nowEl.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      // scroll at most once per 0.8 s: restarting a smooth scroll every frame makes the page jerk
+      if ((r.top < 70 || r.bottom > window.innerHeight - 120) && Date.now() - lastScroll > 800) { lastScroll = Date.now(); nowEl.scrollIntoView({ block: 'center', behavior: 'smooth' }); }
     }
   }
   function setPlayIcon(on) {
@@ -334,7 +343,11 @@
   function updateTime() {
     if (!cur) return;
     var t = trackData(currentTrack());
-    if (t) { $('seek').value = Math.round(1000 * audio.currentTime / t.duration); $('time').innerHTML = fmt(audio.currentTime) + '<span class="tot"> / ' + fmt(t.duration) + '</span>'; }
+    if (t) {
+      $('seek').value = Math.round(1000 * audio.currentTime / t.duration);
+      var tx = fmt(audio.currentTime) + ' / ' + fmt(t.duration);
+      if (tx !== lastTimeText) { lastTimeText = tx; $('time').innerHTML = fmt(audio.currentTime) + '<span class="tot"> / ' + fmt(t.duration) + '</span>'; }
+    }
     else { var g = currentTrack() === 'live' ? live.g : ipad.g; $('seek').value = Math.round(1000 * g / Math.max(1, cur.flat.length - 1)); $('time').textContent = (cur.flat[g] ? cur.flat[g].p + 1 : 1) + ' / ' + cur.story.paragraphs.length; }
   }
   $('play').addEventListener('click', togglePlay);

@@ -9,7 +9,7 @@ This project grew up in the Index nursery (`ShimmyCane/Index`, `03 Projects/Voic
 - Design and increments: `schematic.md`
 - Questions and answers with Jimmy: `convo/convo v0.X.md`. Never compact or rewrite an old one; start a new version.
 - Claude's notes: `notes/brief.md` (current state, verified vs. unverified) and `notes/lessons.md`. Update both after meaningful work.
-- Backlog: `todo.md`. Planned stories: `story_list.md`.
+- Backlog: `todo.md`. Planned stories: `story_list.md`. Version log and the known audio issue: `CHANGELOG.md`.
 - Page: `index.html`, `css/style.css`, `js/app.js` (app), `js/sound.js` (effects and tunes), `js/live.js` + `js/live_worker.js` + `lib/kokoro.web.js` (live Kokoro, vendored kokoro-js 1.2.1, Apache 2.0, licence in `lib/`).
 - Stories: `stories/<id>.js` (text, edited by hand) and `stories/<id>.audio.js` (made by the script). Audio: `audio/<id>.<voice>.mp3`.
 - Audio maker: `tools/make_kokoro.py` (setup in its header; the model files stay outside the repo).

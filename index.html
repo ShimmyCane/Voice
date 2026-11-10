@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Voice · Stories</title>
-<link rel="stylesheet" href="css/style.css?v=0.5.0">
+<link rel="stylesheet" href="css/style.css?v=0.5.1">
 </head>
 <body>
 <header class="top">
@@ -89,7 +89,8 @@
   <div class="setting"><label>Highlight the spoken word</label>
     <div class="seg" data-key="highlight"><button data-v="1">On</button><button data-v="0">Off</button></div></div>
   <div class="setting"><label>Story voice speed</label>
-    <div class="seg" data-key="rate"><button data-v="0.8">Slow</button><button data-v="0.9">Calm</button><button data-v="1">Normal</button><button data-v="1.1">Quick</button></div></div>
+    <div class="seg" data-key="rate"><button data-v="0.8">Slow</button><button data-v="0.9">Calm</button><button data-v="1">Normal</button><button data-v="1.1">Quick</button></div>
+    <p class="hint">Normal is best for the recorded voices. Slow, Calm and Quick stretch the sound, which can make it wobble.</p></div>
   <div class="setting"><label>Kokoro live engine</label>
     <div class="seg" data-key="liveEngine"><button data-v="wasm">Small</button><button data-v="webgpu">Fast</button></div>
     <p class="hint">Small: 92 MB, works everywhere, slower. Fast: 326 MB, needs WebGPU (newer iPads and Chrome). Downloaded once, then kept by the browser.</p></div>
@@ -108,86 +109,86 @@
 
   <div class="setting"><label>Database</label><p class="hint">💾 This device only. Family sign-in, saved stories and versions come in 0.3.</p></div>
   <label class="toggle"><input type="checkbox" id="showErrors"> Show errors</label>
-  <p class="info">Voice 0.5.0 · stories and audio bundled with the page · live voice: Kokoro-82M (Apache 2.0) via kokoro-js</p>
+  <p class="info">Voice 0.5.1 · stories and audio bundled with the page · live voice: Kokoro-82M (Apache 2.0) via kokoro-js</p>
 </aside>
 <div id="errorsPanel" class="errorsPanel" hidden></div>
 
-<script src="stories/fisherman.js?v=0.5.0"></script>
-<script src="stories/fisherman.audio.js?v=0.5.0"></script>
-<script src="stories/fisherman_zh.js?v=0.5.0"></script>
-<script src="stories/fisherman_zh.audio.js?v=0.5.0"></script>
-<script src="stories/fisherman_ja.js?v=0.5.0"></script>
-<script src="stories/fisherman_ja.audio.js?v=0.5.0"></script>
-<script src="stories/wolf_en.js?v=0.5.0"></script>
-<script src="stories/wolf_en.audio.js?v=0.5.0"></script>
-<script src="stories/wolf_zh.js?v=0.5.0"></script>
-<script src="stories/wolf_zh.audio.js?v=0.5.0"></script>
-<script src="stories/wolf_es.js?v=0.5.0"></script>
-<script src="stories/wolf_es.audio.js?v=0.5.0"></script>
-<script src="stories/red_hood.js?v=0.5.0"></script>
-<script src="stories/red_hood.audio.js?v=0.5.0"></script>
-<script src="stories/red_hood_zh.js?v=0.5.0"></script>
-<script src="stories/red_hood_zh.audio.js?v=0.5.0"></script>
-<script src="stories/red_hood_fr.js?v=0.5.0"></script>
-<script src="stories/red_hood_fr.audio.js?v=0.5.0"></script>
-<script src="stories/tortoise_hare.js?v=0.5.0"></script>
-<script src="stories/tortoise_hare.audio.js?v=0.5.0"></script>
-<script src="stories/tortoise_hare_zh.js?v=0.5.0"></script>
-<script src="stories/tortoise_hare_zh.audio.js?v=0.5.0"></script>
-<script src="stories/tortoise_hare_au.js?v=0.5.0"></script>
-<script src="stories/urashima.js?v=0.5.0"></script>
-<script src="stories/urashima.audio.js?v=0.5.0"></script>
-<script src="stories/urashima_zh.js?v=0.5.0"></script>
-<script src="stories/urashima_zh.audio.js?v=0.5.0"></script>
-<script src="stories/urashima_ja.js?v=0.5.0"></script>
-<script src="stories/urashima_ja.audio.js?v=0.5.0"></script>
-<script src="stories/sun_moon.js?v=0.5.0"></script>
-<script src="stories/sun_moon.audio.js?v=0.5.0"></script>
-<script src="stories/sun_moon_zh.js?v=0.5.0"></script>
-<script src="stories/sun_moon_zh.audio.js?v=0.5.0"></script>
-<script src="stories/sun_moon_ko.js?v=0.5.0"></script>
-<script src="stories/stone_soup.js?v=0.5.0"></script>
-<script src="stories/stone_soup.audio.js?v=0.5.0"></script>
-<script src="stories/stone_soup_zh.js?v=0.5.0"></script>
-<script src="stories/stone_soup_zh.audio.js?v=0.5.0"></script>
-<script src="stories/stone_soup_fr.js?v=0.5.0"></script>
-<script src="stories/stone_soup_fr.audio.js?v=0.5.0"></script>
-<script src="stories/dike_boy.js?v=0.5.0"></script>
-<script src="stories/dike_boy.audio.js?v=0.5.0"></script>
-<script src="stories/dike_boy_zh.js?v=0.5.0"></script>
-<script src="stories/dike_boy_zh.audio.js?v=0.5.0"></script>
-<script src="stories/dike_boy_nl.js?v=0.5.0"></script>
-<script src="stories/pinocchio.js?v=0.5.0"></script>
-<script src="stories/pinocchio.audio.js?v=0.5.0"></script>
-<script src="stories/pinocchio_zh.js?v=0.5.0"></script>
-<script src="stories/pinocchio_zh.audio.js?v=0.5.0"></script>
-<script src="stories/pinocchio_it.js?v=0.5.0"></script>
-<script src="stories/pinocchio_it.audio.js?v=0.5.0"></script>
-<script src="stories/ant_grasshopper.js?v=0.5.0"></script>
-<script src="stories/ant_grasshopper.audio.js?v=0.5.0"></script>
-<script src="stories/ant_grasshopper_zh.js?v=0.5.0"></script>
-<script src="stories/ant_grasshopper_zh.audio.js?v=0.5.0"></script>
-<script src="stories/ant_grasshopper_es.js?v=0.5.0"></script>
-<script src="stories/ant_grasshopper_es.audio.js?v=0.5.0"></script>
-<script src="stories/monkey_crocodile.js?v=0.5.0"></script>
-<script src="stories/monkey_crocodile.audio.js?v=0.5.0"></script>
-<script src="stories/monkey_crocodile_zh.js?v=0.5.0"></script>
-<script src="stories/monkey_crocodile_zh.audio.js?v=0.5.0"></script>
-<script src="stories/monkey_crocodile_hi.js?v=0.5.0"></script>
-<script src="stories/monkey_crocodile_hi.audio.js?v=0.5.0"></script>
-<script src="stories/lion_mouse.js?v=0.5.0"></script>
-<script src="stories/lion_mouse.audio.js?v=0.5.0"></script>
-<script src="stories/lion_mouse_zh.js?v=0.5.0"></script>
-<script src="stories/lion_mouse_zh.audio.js?v=0.5.0"></script>
-<script src="stories/lion_mouse_pt.js?v=0.5.0"></script>
-<script src="stories/lion_mouse_pt.audio.js?v=0.5.0"></script>
-<script src="stories/emperor_clothes.js?v=0.5.0"></script>
-<script src="stories/emperor_clothes.audio.js?v=0.5.0"></script>
-<script src="stories/emperor_clothes_zh.js?v=0.5.0"></script>
-<script src="stories/emperor_clothes_zh.audio.js?v=0.5.0"></script>
-<script src="stories/emperor_clothes_da.js?v=0.5.0"></script>
-<script src="js/sound.js?v=0.5.0"></script>
-<script src="js/live.js?v=0.5.0"></script>
-<script src="js/app.js?v=0.5.0"></script>
+<script src="stories/fisherman.js?v=0.5.1"></script>
+<script src="stories/fisherman.audio.js?v=0.5.1"></script>
+<script src="stories/fisherman_zh.js?v=0.5.1"></script>
+<script src="stories/fisherman_zh.audio.js?v=0.5.1"></script>
+<script src="stories/fisherman_ja.js?v=0.5.1"></script>
+<script src="stories/fisherman_ja.audio.js?v=0.5.1"></script>
+<script src="stories/wolf_en.js?v=0.5.1"></script>
+<script src="stories/wolf_en.audio.js?v=0.5.1"></script>
+<script src="stories/wolf_zh.js?v=0.5.1"></script>
+<script src="stories/wolf_zh.audio.js?v=0.5.1"></script>
+<script src="stories/wolf_es.js?v=0.5.1"></script>
+<script src="stories/wolf_es.audio.js?v=0.5.1"></script>
+<script src="stories/red_hood.js?v=0.5.1"></script>
+<script src="stories/red_hood.audio.js?v=0.5.1"></script>
+<script src="stories/red_hood_zh.js?v=0.5.1"></script>
+<script src="stories/red_hood_zh.audio.js?v=0.5.1"></script>
+<script src="stories/red_hood_fr.js?v=0.5.1"></script>
+<script src="stories/red_hood_fr.audio.js?v=0.5.1"></script>
+<script src="stories/tortoise_hare.js?v=0.5.1"></script>
+<script src="stories/tortoise_hare.audio.js?v=0.5.1"></script>
+<script src="stories/tortoise_hare_zh.js?v=0.5.1"></script>
+<script src="stories/tortoise_hare_zh.audio.js?v=0.5.1"></script>
+<script src="stories/tortoise_hare_au.js?v=0.5.1"></script>
+<script src="stories/urashima.js?v=0.5.1"></script>
+<script src="stories/urashima.audio.js?v=0.5.1"></script>
+<script src="stories/urashima_zh.js?v=0.5.1"></script>
+<script src="stories/urashima_zh.audio.js?v=0.5.1"></script>
+<script src="stories/urashima_ja.js?v=0.5.1"></script>
+<script src="stories/urashima_ja.audio.js?v=0.5.1"></script>
+<script src="stories/sun_moon.js?v=0.5.1"></script>
+<script src="stories/sun_moon.audio.js?v=0.5.1"></script>
+<script src="stories/sun_moon_zh.js?v=0.5.1"></script>
+<script src="stories/sun_moon_zh.audio.js?v=0.5.1"></script>
+<script src="stories/sun_moon_ko.js?v=0.5.1"></script>
+<script src="stories/stone_soup.js?v=0.5.1"></script>
+<script src="stories/stone_soup.audio.js?v=0.5.1"></script>
+<script src="stories/stone_soup_zh.js?v=0.5.1"></script>
+<script src="stories/stone_soup_zh.audio.js?v=0.5.1"></script>
+<script src="stories/stone_soup_fr.js?v=0.5.1"></script>
+<script src="stories/stone_soup_fr.audio.js?v=0.5.1"></script>
+<script src="stories/dike_boy.js?v=0.5.1"></script>
+<script src="stories/dike_boy.audio.js?v=0.5.1"></script>
+<script src="stories/dike_boy_zh.js?v=0.5.1"></script>
+<script src="stories/dike_boy_zh.audio.js?v=0.5.1"></script>
+<script src="stories/dike_boy_nl.js?v=0.5.1"></script>
+<script src="stories/pinocchio.js?v=0.5.1"></script>
+<script src="stories/pinocchio.audio.js?v=0.5.1"></script>
+<script src="stories/pinocchio_zh.js?v=0.5.1"></script>
+<script src="stories/pinocchio_zh.audio.js?v=0.5.1"></script>
+<script src="stories/pinocchio_it.js?v=0.5.1"></script>
+<script src="stories/pinocchio_it.audio.js?v=0.5.1"></script>
+<script src="stories/ant_grasshopper.js?v=0.5.1"></script>
+<script src="stories/ant_grasshopper.audio.js?v=0.5.1"></script>
+<script src="stories/ant_grasshopper_zh.js?v=0.5.1"></script>
+<script src="stories/ant_grasshopper_zh.audio.js?v=0.5.1"></script>
+<script src="stories/ant_grasshopper_es.js?v=0.5.1"></script>
+<script src="stories/ant_grasshopper_es.audio.js?v=0.5.1"></script>
+<script src="stories/monkey_crocodile.js?v=0.5.1"></script>
+<script src="stories/monkey_crocodile.audio.js?v=0.5.1"></script>
+<script src="stories/monkey_crocodile_zh.js?v=0.5.1"></script>
+<script src="stories/monkey_crocodile_zh.audio.js?v=0.5.1"></script>
+<script src="stories/monkey_crocodile_hi.js?v=0.5.1"></script>
+<script src="stories/monkey_crocodile_hi.audio.js?v=0.5.1"></script>
+<script src="stories/lion_mouse.js?v=0.5.1"></script>
+<script src="stories/lion_mouse.audio.js?v=0.5.1"></script>
+<script src="stories/lion_mouse_zh.js?v=0.5.1"></script>
+<script src="stories/lion_mouse_zh.audio.js?v=0.5.1"></script>
+<script src="stories/lion_mouse_pt.js?v=0.5.1"></script>
+<script src="stories/lion_mouse_pt.audio.js?v=0.5.1"></script>
+<script src="stories/emperor_clothes.js?v=0.5.1"></script>
+<script src="stories/emperor_clothes.audio.js?v=0.5.1"></script>
+<script src="stories/emperor_clothes_zh.js?v=0.5.1"></script>
+<script src="stories/emperor_clothes_zh.audio.js?v=0.5.1"></script>
+<script src="stories/emperor_clothes_da.js?v=0.5.1"></script>
+<script src="js/sound.js?v=0.5.1"></script>
+<script src="js/live.js?v=0.5.1"></script>
+<script src="js/app.js?v=0.5.1"></script>
 </body>
 </html>
